@@ -80,7 +80,7 @@
   
     const myQuestions = [
       {
-        question: "CRO can be used to measure ___________",
+        question: "CRO is be used to measure ___________",
         answers: {
           a: "Frequency",
           b: "AC Voltage",
