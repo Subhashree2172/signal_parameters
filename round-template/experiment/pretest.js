@@ -100,7 +100,7 @@
         correctAnswer: "b"
       },
       {
-        question: "Square wave and pulse wave are same in all aspects",
+        question: "Square wave and pulse wave are same in all the aspects",
         answers: {
           a: "True",
           b: "False"
