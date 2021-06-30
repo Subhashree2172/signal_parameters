@@ -1,5 +1,3 @@
-# Theory:
-
 ## Function Generator:
   Function Generator is an instrument that can generate common waveforms like triangle, sine, cosine, square, sawtooth, etc., It also provides options for changing the characteristics of the waveforms such as amplitude and frequency. The wave generated is available at the output jack. It can be visualised by connecting it to the CRO.
 
