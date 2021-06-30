@@ -193,8 +193,8 @@ background-color: rgba(0,255,0,0.1);
 /* Tour button */
 .tour{
   position: absolute;
-  top:350px;
-  left:1200px;}
+  top:100px;
+  left:50px;}
 
 /* //Result section */
 .result_heading{
