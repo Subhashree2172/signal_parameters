@@ -40,7 +40,7 @@ background-color: rgba(0,255,0,0.1);
   right:100px;
   background-color:grey;}
 
-/* //cro button canvas  */
+/* //cro button canvas */
 .on_off,.xy,.focus{
   position: absolute;
   top:265px;}
@@ -73,11 +73,11 @@ background-color: rgba(0,255,0,0.1);
 
 /* //Wire CSS */
 .connect{
-  top:350px;
-  left:1000px;}
+  top:250px;
+  left:20px;}
 .remove{
-  top:350px;
-  left:1100px;}
+  top:300px;
+  left:20px;}
 
 /* Function Generator Canva */
 #fg_canvas{
@@ -86,39 +86,39 @@ background-color: rgba(0,255,0,0.1);
   border-radius:5px;
   position:absolute;
   top:100px;
-  left:700px;
+  left:635px;
   background-color:grey;}
 #display_canvas{
   position:absolute;
   top:120px;
-  left:720px;
+  left:650px;
   background-color:rgba(0,255,0,0.1);
   border:2px solid black;
   z-index:-1;}
 .amplitude_fg,.signal_class,.frequency_fg{
   position:absolute;
   top:180px;}
-.amplitude_fg{left:940px;}
-.signal_class{left:720px;}
-.frequency_fg{left:820px;}
+.amplitude_fg{left:860px;}
+.signal_class{left:650px;}
+.frequency_fg{left:750px;}
 .on_off_fg{
   position:absolute;
   top:120px;
-  left:950px;}
+  left:870px;}
 .outer_window{
-  width:1275px;
+  width:995px;
   height:600px;
   border:2px solid black;
   z-index:-3;}
 
 .stimulation_window{
-  width:1275px;
+  width:995px;
   height:400px;}
 
 #wire{
   position: absolute;
   top:225px;
-  left:310px;
+  left:240px;
   z-index:-2;}
 
 /* Demo//\\ */
@@ -133,8 +133,8 @@ background-color: rgba(0,255,0,0.1);
   position:absolute;
   margin:0px;}
 #connect_demo{
-  top:170px;
-  left:950px;}
+  top:140px;
+  left:100px;}
 #onoff_cro_demo{
    top:110px;
    left:180px;}
@@ -142,10 +142,12 @@ background-color: rgba(0,255,0,0.1);
   width:250px;
   height:150px;
   top:20px;
-  left:1000px;}
+  left:600px;}
 #amplitude_fg_demo{
-  top:60px;
-  left:900px;}
+  top:250px;
+  left:840px;
+  width:160px;
+  height:230px;}
 .question{
   height:200px;
   left:500px;
@@ -155,10 +157,10 @@ background-color: rgba(0,255,0,0.1);
 }
 #signal_select_demo{
   top:60px;
-  left:700px;}
+  left:650px;}
 #frequency_fg_demo{
   top:60px;
-  left:800px;}
+  left:700px;}
 #xposition_cro_demo{
   width:300px;
   height:150px;
@@ -186,14 +188,14 @@ background-color: rgba(0,255,0,0.1);
   top:300px;
   left:380px;}
 #remove_wire_demo{
-  top:30px;
-  left:1050px;
+  top:20px;
+  left:120px;
   width:180px;
   height:300px;}
 /* Tour button */
 .tour{
-  position:absolute;
-  top:100px;  
+  position: absolute;
+  top:200px;
   left:20px;}
 
 /* //Result section */
@@ -214,4 +216,6 @@ background-color: rgba(0,255,0,0.1);
   height:23px;
   outline-color: invert;
   border-radius: 3px;}
-
+.result_box{
+  width:992px;
+}
