@@ -2,7 +2,7 @@ body{
 margin:20px;}
 h5,.on_off,.focus,.xy{
 margin-left:20px;}
-input[type=number],.time_division_input,.ydivision_input,.signal{
+input[type=number],.time_division_input,.ydivision_input,.signal,select{
   width:70px;
   border-radius:10px;}
 h3{
