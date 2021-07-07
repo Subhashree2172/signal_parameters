@@ -2,7 +2,7 @@
   Function Generator is an instrument that can generate common waveforms like triangle, sine, cosine, square, sawtooth, etc., It also provides options for changing the characteristics of the waveforms such as amplitude and frequency. The wave generated is available at the output jack. It can be visualised by connecting it to the CRO.
 
 <p align="center">
-    <img  width="300" heigth="250" alt="Function Generator" src="images/functiongenerator.PNG">
+    <img  width="300" heigth="250" alt="Function Generator" title="Function Generator" src="images/functiongenerator.PNG">
 </p>
 
   citation : image of function generator taken from tradeindia.
@@ -12,7 +12,7 @@
 	CRO is mainly used to analyse the properties of the waveforms  
 
   <p align="center">
-      <img  width="300" heigth="250" alt="CRO" src="images/cro.PNG">
+      <img  width="300" heigth="250" alt="CRO" title="Cathode Ray Oscilloscope" src="images/cro.PNG">
   </p>
 
   citation : image of cro taken from amazon.in.
@@ -24,7 +24,7 @@ Sine wave is a periodic wave defined by the function.
 - The Average value of Sine wave =  2 × Peak Value / π
 
 <p align="center">
-    <img  width="300" heigth="250" alt="Sinewave" src="images/sine_periodic.png">
+    <img  width="300" heigth="250" alt="Sinewave" title="Sinewave" src="images/sine_periodic.png">
 </p>
 
 
@@ -35,7 +35,7 @@ Cosine wave is also a periodic wave defined by a function.
 - The Average value of Cosine wave =  2 × Peak Value / π
 
 <p align="center">
-    <img  width="300" heigth="250" alt="cosine_wave" src="images/cos.png">
+    <img  width="300" heigth="250" alt="cosine_wave" title="Cosine wave" src="images/cos.png">
 </p>
 
 
@@ -47,7 +47,7 @@ generally called as 50% duty cycle.
 
 
 <p align="center">
-    <img  width="300" heigth="250" alt="square_wave" src="images/square.png">
+    <img  width="300" heigth="250" title="Square wave" alt="square_wave" src="images/square.png">
 </p>
 
 
@@ -57,7 +57,7 @@ generally called as 50% duty cycle.
   - The Average value of Sawtooth wave =   Peak Value / 2
 
   <p align="center">
-      <img  width="300" heigth="250" alt="sawtooth_wave" src="images/sawtooth.PNG">
+      <img  width="300" heigth="250" alt="sawtooth_wave" title="Sawtooth wave" src="images/sawtooth.PNG">
   </p>
 
 
@@ -69,5 +69,5 @@ By repeatedly charging and discharging a capacitor from a constant current sourc
 
 
 <p align="center">
-    <img  width="300" heigth="250" alt="triangular_wave" src="images/triangular.PNG">
+    <img  width="300" heigth="250" alt="triangular_wave" title="Triangular wave" src="images/triangular.PNG">
 </p>
