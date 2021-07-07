@@ -18,38 +18,38 @@
       <!-- CRO graph -->
       <canvas id="canvas"></canvas>
       <!-- MEASUREMENT guide -->
-      <button type="button" class="btn btn-info button measurement" onclick="measurement_guide()">How to measure?</button>
+      <button id="how_to_measure" type="button" class="btn btn-info button measurement" onclick="measurement_guide()">How to measure?</button>
       <!-- cro device  -->
       <canvas id="cro_canvas"></canvas>
       <!-- ON-OFF -->
       <div class="on_off form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="on_off flexSwitchCheck" onclick="on_off_cro()">
+        <input id="on_off_cro" class="form-check-input" type="checkbox" id="on_off flexSwitchCheck" onclick="on_off_cro()">
         <label class="form-check-label" for="flexSwitchCheckDefault">On/Off</label>
       </div>
       <!-- Y-Position -->
       <div class="yposition">
         <label for="time_period">Y position</label><br>
-        <input type="number" id="yposition" value="0" onchange="yposition()">
+        <input id="yposition" type="number" id="yposition" value="0" onchange="yposition()">
       </div>
       <!-- X-position -->
       <div class="xposition">
         <label for="time_period">X position</label><br>
-        <input type="number" id="xposition" value="0" onchange="xposition()">
+        <input id="xposition" type="number" id="xposition" value="0" onchange="xposition()">
       </div>
       <!-- XY -->
       <div class="xy form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault xy" onclick="xy()">
+        <input id="xy" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault xy" onclick="xy()">
         <label class="form-check-label" for="flexSwitchCheckDefault">X-Y</label>
       </div>
       <!-- Focus -->
       <div class="focus form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault focus" onclick="myfunc()">
+        <input id="focus" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault focus" onclick="myfunc()">
         <label class="form-check-label" for="flexSwitchCheckDefault">Focus</label>
       </div>
       <!-- time Division -->
       <div class="time_division">
         <label for="">Time Division</label><br>
-        <select class="time_division_input" id="time_division" onchange="timeperiod()">
+        <select id="time_division" class="time_division_input" id="time_division" onchange="timeperiod()">
           <option value="0.001">1ms Default</option>
           <option value="1">1 s</option>
           <option value="0.0001">0.1 ms</option>
@@ -72,7 +72,7 @@
       <!-- Y-Division -->
       <div class="y_division">
         <label for="">Y-Division</label><br>
-        <select class="ydivision_input" id="ydivision_input" onchange="ydivision()">
+        <select id="y_division" class="ydivision_input" id="ydivision_input" onchange="ydivision()">
           <option value="1">1 V</option>
           <option value="2">2 V</option>
           <option value="5">5 V</option>
@@ -85,8 +85,8 @@
           <option value="0.005">5 mV</option>
         </select>
       </div>
-      <button type="button" class="btn btn-info button connect" onclick="connect_wire()">Connect</button>
-      <button type="button" class="btn btn-info button remove" onclick="remove_wire()">Remove</button>
+      <button id="connect" type="button" class="btn btn-info button connect" onclick="connect_wire()">Connect</button>
+      <button id="remove" type="button" class="btn btn-info button remove" onclick="remove_wire()">Remove</button>
       <!-- Function Generator -->
       <!-- Display -->
       <canvas id="display_canvas" width="200" height="50"></canvas>
@@ -95,18 +95,18 @@
       <!-- ON-FF For FG -->
       <div class="on_off_fg form-check form-switch">
         <label class="form-check-label" for="flexSwitchCheckDefault">On/Off</label>
-        <input class="form-check-input" type="checkbox" id="on_off flexSwitchCheck" onchange="on_off_fg()">
+        <input id="on_off_fg" class="form-check-input" type="checkbox" id="on_off flexSwitchCheck" onchange="on_off_fg()">
 
       </div>
       <!-- Amplitude  -->
       <div class="amplitude_fg">
         <label for="time_period">Amplitude(V)</label></label><br>
-        <input type="number" id="amplitude" name="" value="30" onchange="amplitude()">
+        <input id="amplitude" type="number" id="amplitude" name="" value="30" onchange="amplitude()">
       </div>
       <!-- Frequency  -->
       <div class="frequency_fg">
         <label for="Frequency">Frequency(Hz)</label></label><br>
-        <input type="number" id="frequency" name="" value="5" onchange="freq()">
+        <input id="frequency" type="number" id="frequency" name="" value="5" onchange="freq()">
       </div>
       <!-- Type of Signal -->
       <div class="signal_class">
@@ -122,7 +122,7 @@
       <img src="images/wire.png" id="wire" alt="wire">
 
       <!-- Demo tour -->
-      <button type="button" class="btn btn-info button tour" onclick="tour()">Tour</button>
+      <button id="tour" type="button" class="btn btn-info button tour" onclick="tour()">Tour</button>
       <!-- connect demo -->
       <dialog id="connect_demo" class="demo">
         <p>Press the connect button to connect the CRO and Function Generator with wire</p>
