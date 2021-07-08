@@ -3,7 +3,6 @@
 
 <p align="center">
     <img  width="300" heigth="250" alt="Function Generator" title="Function Generator" src="images/functiongenerator.PNG">
-    <figcaption align="center" >Function Generator</figcaption>
 </p>
 
   citation : image of function generator taken from tradeindia.
@@ -14,7 +13,6 @@
 
   <p align="center">
       <img  width="300" heigth="250" alt="CRO" title="Cathode Ray Oscilloscope" src="images/cro.PNG">
-      <figcaption align="center" >Cathode Ray Oscilloscope</figcaption>
   </p>
 
   citation : image of cro taken from amazon.in.
@@ -26,7 +24,7 @@ Sine wave is a periodic wave defined by the function.
 - The Average value of Sine wave =  2 × Peak Value / π
 
 <p align="center">
-    <img  width="300" heigth="250" alt="Sinewave" title="Sinewave" src="images/sine_periodic.png"><figcaption align="center">Sine wave</figcaption>
+    <img  width="300" heigth="250" alt="Sinewave" title="Sinewave" src="images/sine_periodic.png">
 </p>
 
 
@@ -37,7 +35,7 @@ Cosine wave is also a periodic wave defined by a function.
 - The Average value of Cosine wave =  2 × Peak Value / π
 
 <p align="center">
-    <img  width="300" heigth="250" alt="cosine_wave" title="Cosine wave" src="images/cos.png"><figcaption align="center" >Cosine wave</figcaption>
+    <img  width="300" heigth="250" alt="cosine_wave" title="Cosine wave" src="images/cos.png">
 </p>
 
 
@@ -49,7 +47,7 @@ generally called as 50% duty cycle.
 
 
 <p align="center">
-    <img  width="300" heigth="250" title="Square wave" alt="square_wave" src="images/square.png"><figcaption align="center">Square wave</figcaption>
+    <img  width="300" heigth="250" title="Square wave" alt="square_wave" src="images/square.png">
 </p>
 
 
@@ -61,7 +59,7 @@ generally called as 50% duty cycle.
   <p align="center">
       <img  width="300" heigth="250" alt="sawtooth_wave" title="Sawtooth wave" src="images/sawtooth.PNG">
   </p>
-  <figcaption align="center" >Sawtooth Wave</figcaption>
+
 
 ## Triangular wave:
 Triangular waves have a triangular shape which is a periodic and non-sinusoidal waveform. Time and again people get confused between the triangle and sawtooth waves. The distinguishing feature of a triangular wave is that it has equal rise and fall times. To generate a triangular waveform we need an input wave, we are using square waves for input. Similar to the triangular waves, square waves have equal rise and fall times so they are more suitable to be converted to a triangular waveform. The triangle waveform increases gradually along a straight line to its maximum value, and then gradually decreases along a straight line to its lowest value, and then starts increasing again.
@@ -72,5 +70,5 @@ By repeatedly charging and discharging a capacitor from a constant current sourc
 
 <p align="center">
     <img  width="300" heigth="250" alt="triangular_wave" title="Triangular wave" src="images/triangular.PNG">
-   <figcaption align="center" >Triangular wave</figcaption>
+
 </p>
