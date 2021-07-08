@@ -3,6 +3,7 @@
 
 <p align="center">
     <img  width="300" heigth="250" alt="Function Generator" title="Function Generator" src="images/functiongenerator.PNG">
+	<figcaption style="text-align:centre;" >Function Generator</figcaption>
 </p>
 
   citation : image of function generator taken from tradeindia.
@@ -13,6 +14,7 @@
 
   <p align="center">
       <img  width="300" heigth="250" alt="CRO" title="Cathode Ray Oscilloscope" src="images/cro.PNG">
+	<figcaption style="text-align:centre;" >Cathode Ray Oscilloscope</figcaption>
   </p>
 
   citation : image of cro taken from amazon.in.
@@ -25,6 +27,7 @@ Sine wave is a periodic wave defined by the function.
 
 <p align="center">
     <img  width="300" heigth="250" alt="Sinewave" title="Sinewave" src="images/sine_periodic.png">
+	<figcaption style="text-align:centre;" >Sine wave</figcaption>
 </p>
 
 
@@ -36,6 +39,7 @@ Cosine wave is also a periodic wave defined by a function.
 
 <p align="center">
     <img  width="300" heigth="250" alt="cosine_wave" title="Cosine wave" src="images/cos.png">
+	<figcaption style="text-align:centre;" >Cosine wave</figcaption>
 </p>
 
 
@@ -48,6 +52,7 @@ generally called as 50% duty cycle.
 
 <p align="center">
     <img  width="300" heigth="250" title="Square wave" alt="square_wave" src="images/square.png">
+	<figcaption style="text-align:centre;" >Square wave</figcaption>
 </p>
 
 
@@ -58,6 +63,7 @@ generally called as 50% duty cycle.
 
   <p align="center">
       <img  width="300" heigth="250" alt="sawtooth_wave" title="Sawtooth wave" src="images/sawtooth.PNG">
+	<figcaption style="text-align:centre;" >Sawtooth Wave</figcaption>
   </p>
 
 
@@ -70,4 +76,5 @@ By repeatedly charging and discharging a capacitor from a constant current sourc
 
 <p align="center">
     <img  width="300" heigth="250" alt="triangular_wave" title="Triangular wave" src="images/triangular.PNG">
+	<figcaption style="text-align:centre;" >Triangular wave</figcaption>
 </p>
