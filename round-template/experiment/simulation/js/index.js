@@ -330,7 +330,7 @@ function disable() {
   document.getElementById("xposition").disabled = x;
   document.getElementById("xy").disabled = x;
   document.getElementById("focus").disabled = x;
-  document.getElementById("y_division").disabled = x;
+  document.getElementById("ydivision_input").disabled = x;
   document.getElementById("connect").disabled = x;
   document.getElementById("remove").disabled = x;
   document.getElementById("on_off_fg").disabled = x;
