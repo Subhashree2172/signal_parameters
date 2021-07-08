@@ -1,559 +1,298 @@
-var canvas = document.querySelector("canvas");
-canvas.width = 1000;
-canvas.height = 500;
-//to create 2d graphics------------------------------------------------
-var c = canvas.getContext('2d');
-// ----------------------------------------------------------------------
-//Initiating the global values
-var frequency = Number(5) // var time_period = Number(5);
-var y_pos = Number(0);
-var amp = Number(30);
-var x_pos = Number(0);
-var count = 1; //INITIALISING cro_BUTTON COUNT
-var xycount = 1; ///INITIALISING XY toggle BUTTON COUNT
-var focus_count = 1; ///INITIALISING focus toggle BUTTON COUNT
-var count_fg = 0; ///INITIALISING FG  toggle BUTTON COUNT
-var on = 0; // cro on state
-var xy_on = 0; // xy on state
-var focus = 0; //focus on state
-var on_fg = 0; //Function generator on state
-var signal_no = 1;
-var connect = 0; //Connect button click count
-var tour_on = 0; //tour button click count
-var dialog;
-var dialog_out;
-var y_div = 1;
-var x_div = 0.001;
-const pi = 3.14;
-var quest_no = 0;
-var peak_value = 0;
-var avg_value = 0;
-var q1_count = 0; //for question to be asked once this feature is added
-var q2_count = 0;
-var q3_count = 0;
-var q4_count = 0;
-var q5_count = 0;
-var tour_check = 0;
-quest_answered = 1;
-// plotAxes();-----------------------------------------------------
-function plotAxes() {
-  c.clearRect(0, 0, canvas.width, canvas.height);
-  c.strokeStyle = "black";
-  //vertical line and y-axis markings
-  for (var i = 0; i < 2000; i = i + 50) {
-    c.beginPath();
-    c.moveTo(i, 0);
-    c.lineTo(i, 600);
-    c.stroke();
-    if (i == 500) {
-      for (var j = 0; j < canvas.height; j = j + 10) {
-        c.beginPath();
-        c.moveTo(canvas.width / 2 - 8, j);
-        c.lineTo(canvas.width / 2 + 8, j);
-        c.stroke();
-      }
-    }
-  }
-  //Horizontal line and x-axis markings
-  for (var i = 0; i < 1000; i = i + 50) {
-    c.beginPath();
-    c.moveTo(0, i);
-    c.lineTo(1500, i);
-    c.stroke();
-    if (i == 250) {
-      for (var j = 0; j < canvas.width; j = j + 10) {
-        c.beginPath();
-        c.moveTo(j, canvas.height / 2 - 8);
-        c.lineTo(j, canvas.height / 2 + 8);
-        c.stroke();
-      }
-    }
-  }
-}
-//Creating Signals waves--------------------------------------------------------
-function plotfunc() {
-  plotAxes();
-  c.strokeStyle = "blue";
-  c.beginPath();
-  var y = (canvas.height / 2);
-  c.moveTo(x_pos, y);
-  for (i = x_pos; i < 2000; i++) {
-    if (signal_no == 1) { //Sine wave
-      y = ((canvas.height / 2) + ((Math.sin(((i) - x_pos) * frequency * x_div * 6.4)) * (-amp) * (y_div)) - (y_pos * 1));
-    } else if (signal_no == 2) { //Cos wave
-      y = ((canvas.height / 2) + ((Math.cos(((i) - x_pos) * frequency * x_div * 6.4)) * (-amp) * (y_div)) - (y_pos * 1));
-    } else if (signal_no == 3) { //Sawtooth signal
-      y = ((canvas.height / 2) + ((-2 * amp * y_div) / pi) * (Math.atan((1 / (Math.tan(pi * (i - x_pos) * (frequency) * x_div))))) - (y_pos * 1));
-    } else if (signal_no == 4) { //triangle signal
-      y = ((canvas.height / 2) + ((2 * (-amp * y_div)) / pi) * (Math.acos(((Math.cos(pi * (i - x_pos) * (2 * frequency) * x_div))))) - (y_pos * 1));
-    } else if (signal_no == 5) { //Sqaure wave
-      y = ((canvas.height / 2) + Math.sign(((Math.sin(2 * pi * (i - x_pos) * 1.03 * frequency * x_div)) * (amp) * y_div)) * (amp * y_div * 1) - (y_pos * 1));
-    }
-    c.lineTo(i, y);
-  }
-  c.stroke();
-}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 
-function plot_condn() {
-  if (on == 1 && on_fg == 1 && connect == 1) {
-    result();
-    if (xy_on == 1 && focus == 0) {
-      window.requestAnimationFrame(plotLine);
-    } else if (focus == 1 && xy_on == 0 && on_fg == 1) {
-      window.requestAnimationFrame(plot_focus);
-    } else if (focus == 0 && xy_on == 0) {
-      window.requestAnimationFrame(plotfunc);
-    }
-  } else if (on == 1) {
-    window.requestAnimationFrame(plotAxes);
-  }
-}
-// CRO  PARAMETERS----------------------------------------
-//Time period-------------------------------------------------------------------
-function timeperiod() {
-    if (on == 1 && on_fg == 1) {
-      time_period = Number(document.getElementById("time_division").value);
-      x_div = time_period;
-      plot_condn();
-    }
-    if (tour_on == 8) { //For demo purpose
-      dialog.close();
-      dialog = document.getElementById('yposition_cro_demo');
-      dialog.show();
-      tour_on = 9;
-    }
+<head>
+  <meta charset="utf-8">
+  <title>Canvas</title>
+  <link rel="stylesheet" href="css/index.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+</head>
 
+<body>
+  <div class="outer_window">
 
-}
-// // Position of Y changing----------------------------------------------------
-function yposition() {
+    <div class="stimulation_window">
+      <h3>SIGNAL MEASUREMENT</h3>
+      <!-- CRO -->
+      <!-- CRO graph -->
+      <canvas id="canvas"></canvas>
+      <!-- MEASUREMENT guide -->
+      <button id="how_to_measure" type="button" class="btn btn-info button measurement" onclick="measurement_guide()">How to measure?</button>
+      <!-- cro device  -->
+      <canvas id="cro_canvas"></canvas>
+      <!-- ON-OFF -->
+      <div class="on_off form-check form-switch">
+        <input id="on_off_cro" class="form-check-input" type="checkbox" id="on_off flexSwitchCheck" onclick="on_off_cro()">
+        <label class="form-check-label" for="flexSwitchCheckDefault">On/Off</label>
+      </div>
+      <!-- Y-Position -->
+      <div class="yposition">
+        <label for="time_period">Y position</label><br>
+        <input id="yposition" type="number" id="yposition" value="0" onchange="yposition()">
+      </div>
+      <!-- X-position -->
+      <div class="xposition">
+        <label for="time_period">X position</label><br>
+        <input id="xposition" type="number" id="xposition" value="0" onchange="xposition()">
+      </div>
+      <!-- XY -->
+      <div class="xy form-check form-switch">
+        <input id="xy" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault xy" onclick="xy()">
+        <label class="form-check-label" for="flexSwitchCheckDefault">X-Y</label>
+      </div>
+      <!-- Focus -->
+      <div class="focus form-check form-switch">
+        <input id="focus" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault focus" onclick="myfunc()">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Focus</label>
+      </div>
+      <!-- time Division -->
+      <div class="time_division">
+        <label for="">Time Division</label><br>
+        <select id="time_division" class="time_division_input" id="time_division" onchange="timeperiod()">
+          <option value="0.001">1ms Default</option>
+          <option value="1">1 s</option>
+          <option value="0.0001">0.1 ms</option>
+          <option value="0.0002">0.2 ms</option>
+          <option value="0.0005">0.5 ms</option>
+          <option value="0.001">1 ms</option>
+          <option value="0.002">2 ms</option>
+          <option value="0.005">5 ms</option>
+          <option value="0.05">50 ms</option>
+          <option value="0.02">20 ms</option>
+          <option value="0.01">10 ms</option>
+          <option value="0.000001">1 µs</option>
+          <option value="0.000002">2 µs</option>
+          <option value="0.000005">5 µs</option>
+          <option value="0.00001">10 µs</option>
+          <option value="0.00002">20 µs</option>
+          <option value="0.00005">50 µs</option>
+        </select>
+      </div>
+      <!-- Y-Division -->
+      <div class="y_division">
+        <label for="">Y-Division</label><br>
+        <select  class="ydivision_input" id="ydivision_input" onchange="ydivision()">
+          <option value="1">1 V</option>
+          <option value="2">2 V</option>
+          <option value="5">5 V</option>
+          <option value="10">10 V</option>
+          <option value="0.1">0.1 V</option>
+          <option value="0.2">0.2 V</option>
+          <option value="0.5">0.5 V</option>
+          <option value="0.001">1 mV</option>
+          <option value="0.002">2 mV</option>
+          <option value="0.005">5 mV</option>
+        </select>
+      </div>
+      <button id="connect" type="button" class="btn btn-info button connect" onclick="connect_wire()">Connect</button>
+      <button id="remove" type="button" class="btn btn-info button remove" onclick="remove_wire()">Remove</button>
+      <!-- Function Generator -->
+      <!-- Display -->
+      <canvas id="display_canvas" width="200" height="50"></canvas>
+      <!-- canva for Fg -->
+      <canvas id="fg_canvas" width="350" height="150"></canvas>
+      <!-- ON-FF For FG -->
+      <div class="on_off_fg form-check form-switch">
+        <label class="form-check-label" for="flexSwitchCheckDefault">On/Off</label>
+        <input id="on_off_fg" class="form-check-input" type="checkbox" id="on_off flexSwitchCheck" onchange="on_off_fg()">
 
-    if (on == 1 && on_fg == 1) {
-      y_pos = Number(document.getElementById("yposition").value);
-      plot_condn();
-    }
-    if (tour_on == 9) { //For demo purpose
-      dialog.close();
-      dialog = document.getElementById('ydivision_cro_demo');
-      dialog.show();
-      tour_on = 10;
-    }
+      </div>
+      <!-- Amplitude  -->
+      <div class="amplitude_fg">
+        <label for="time_period">Amplitude(V)</label></label><br>
+        <input id="amplitude" type="number" id="amplitude" name="" value="30" onchange="amplitude()">
+      </div>
+      <!-- Frequency  -->
+      <div class="frequency_fg">
+        <label for="Frequency">Frequency(Hz)</label></label><br>
+        <input id="frequency" type="number" id="frequency" name="" value="5" onchange="freq()">
+      </div>
+      <!-- Type of Signal -->
+      <div class="signal_class">
+        <label for="">Signal</label><br>
+        <select class="signal" id="signal_select" onchange="signal_selection()">
+          <option value="1">Sine</option>
+          <option value="2">Cos</option>t
+          <option value="3">Sawtooth</option>
+          <option value="4">Triangle</option>
+          <option value="5">Square</option>
+        </select>
+      </div>
+      <img src="images/wire.png" id="wire" alt="wire">
 
+      <!-- Demo tour -->
+      <button id="tour" type="button" class="btn btn-info button tour" onclick="tour()">Tour</button>
+      <!-- connect demo -->
+      <dialog id="connect_demo" class="demo">
+        <p>Press the connect button to connect the CRO and Function Generator with wire</p>
+        <img class="demo_img" src="images/left_arrow.png" alt="left_arrow">
+      </dialog>
+      <!-- on_off_cro -->
+      <dialog id="onoff_cro_demo" class="demo">
+        <p>Toggle the On/Off Switch to on the CRO for display</p>
+        <img class="demo_img" src="images/down_arrow.png" alt="down_arrow">
+      </dialog>
+      <!-- on_off_function_generator -->
+      <dialog id="onoff_fg_demo" class="demo">
+ <img class="demo_img" src="images/right_arrow.png" alt="right_arrow">
+        <p>Toggle the switch to on the Function Generator for setting the signals</p>
 
-}
-// //Position of X-Axis---------------------------------------------------------
-function xposition() {
+      </dialog>
+      <!-- type of signal selection -->
+      <dialog id="signal_select_demo" class="demo">
+        <p>Choose the type of signal</p>
+        <img class="demo_img" src="images/down_arrow.png" alt="down_arrow">
+      </dialog>
+      <!-- Amplitude of the signal -->
+      <dialog id="amplitude_fg_demo" class="demo">
+          <img class="demo_img" src="images/up_arrow.png" alt="up_arrow">
+        <p>Set the amplitude of the signal</p>
 
-    if (on == 1 && on_fg == 1) {
-      x_pos = Number(document.getElementById("xposition").value);
-      plot_condn();
-    }
-    if (tour_on == 7) { //For demo purpose
-      dialog.close();
-      dialog = document.getElementById('xdivision_cro_demo');
-      dialog.show();
-      tour_on = 8;
-    }
+      </dialog>
+      <!-- Frequency of the signal -->
+      <dialog id="frequency_fg_demo" class="demo">
+        <p>Set the frequency of the signal</p>
+        <img class="demo_img" src="images/down_arrow.png" alt="down_arrow">
+      </dialog>
+      <!-- Set the x-position -->
+      <dialog id="xposition_cro_demo" class="demo">
+        <p>Change the x-position to move the signal sidewards</p>
+        <img class="demo_img" src="images/left_arrow.png" alt="left_arrow">
+      </dialog>
+      <!-- Set the x-division -->
+      <dialog id="xdivision_cro_demo" class="demo">
+        <p>Change the x-division to change the width of the signal</p>
+        <img class="demo_img" src="images/left_arrow.png" alt="left_arrow">
+      </dialog>
+      <!-- Set the y-position -->
+      <dialog id="yposition_cro_demo" class="demo">
+        <p>Change the y-position to move the signal up and down</p>
+        <img class="demo_img" src="images/left_arrow.png" alt="left_arrow">
+      </dialog>
+      <!-- Set the y-division -->
+      <dialog id="ydivision_cro_demo" class="demo">
+        <p>Change the y-position to change the height of the signal</p>
+        <img class="demo_img" src="images/left_arrow.png" alt="left_arrow">
+      </dialog>
+      <!-- on the x-y switch -->
+      <dialog id="xy_cro_demo" class="demo">
+        <img class="demo_img" src="images/up_arrow.png" alt="up_arrow">
+        <p>Toggle the switch to view the signal as vertical line to calculate the amplitude</p>
+      </dialog>
+      <!-- on the focus switch -->
+      <dialog id="focus_cro_demo" class="demo">
+        <img class="demo_img" src="images/up_arrow.png" alt="up_arrow">
+        <p>Switch off the XY switch and toggle the focus switch to view the signal as Horizontal line</p>
+      </dialog>
+      <!-- Remove wire -->
+      <dialog id="remove_wire_demo" class="demo">
+        <p>Click to remove the wire and disconnect the CRO and function generator.Consider each division in the CRO axis as 10 units and measured signal parameter is displayed</p>
+        <img class="demo_img" src="images/left_arrow.png" alt="left_arrow">
+      </dialog>
+      <!-- Pop up question 1 -->
+      <dialog id="pop_up_quest_1" class="demo question">
+        <p>1.)How do you calculate the RMS voltage of a Sine Wave?</p>
+        <form class="" >
+            <input class="answer" type="radio"  name="quest_1" value="1" > <label> Peak Voltage / √2 </label><br>
+            <input class="answer" type="radio"  name="quest_1" value="0"> <label> Peak Voltage / √7</label><br>
+            <input class="answer" type="radio"   name="quest_1" value="0" > <label>Peak Voltage / 2 </label><br>
+            <input class="answer" type="radio"  name="quest_1" value="0" > <label>Peak Voltage / √3 </label>
+        </form>
+      </dialog>
+      <!-- Pop up question 2 -->
+      <dialog id="pop_up_quest_2" class="demo question">
+        <p>2.)If the peak-to-peak value of sine wave is 60V what is the RMS value ?</p>
+        <form class="" >
+            <input class="answer" type="radio"  name="quest_1" value="0" > <label> 42.42 V</label><br>
+            <input class="answer" type="radio"  name="quest_1" value="0"> <label>60 V </label><br>
+            <input class="answer" type="radio"   name="quest_1" value="0" > <label>30 V</label><br>
+            <input class="answer" type="radio"  name="quest_1" value="1" > <label>21.21V</label>
+        </form>
+      </dialog>
+      <!-- Pop up question 3 -->
+      <dialog id="pop_up_quest_3" class="demo question">
+        <p>3.)If frequency = 10Hz, what is the time period? </p>
+        <form class="" >
+            <input class="answer" type="radio"  name="quest_1" value="0" > <label> 10s </label><br>
+            <input class="answer" type="radio"  name="quest_1" value="0"> <label> 20s </label><br>
+            <input class="answer" type="radio"   name="quest_1" value="0" > <label> 0.2s </label><br>
+            <input class="answer" type="radio"  name="quest_1" value="1" > <label> 0.1s </label>
+        </form>
+      </dialog>
+      <!-- Pop up question 4 -->
+      <dialog id="pop_up_quest_4" class="demo question">
+        <p>4.)The total area under the complete sine wave curve divided by the distance of the curve is known as?</p>
+        <form class="" >
+            <input class="answer" type="radio"  name="quest_1" value="0" > <label>Peak-to-peak value </label><br>
+            <input class="answer" type="radio"  name="quest_1" value="0"> <label> RMS value</label><br>
+            <input class="answer" type="radio"   name="quest_1" value="1" > <label>Average value </label><br>
+            <input class="answer" type="radio"  name="quest_1" value="0" > <label>Effective value</label>
+        </form>
+      </dialog>
+      <!-- Pop up question 5 -->
+      <dialog id="pop_up_quest_5" class="demo question">
+        <p>5.)What is the RMS value of sawtooth wave if the peak value is 20V?</p>
+        <form class="" >
+            <input class="answer" type="radio"  name="quest_1" value="0" > <label>20V </label><br>
+            <input class="answer" type="radio"  name="quest_1" value="0"> <label>5.77V</label><br>
+            <input class="answer" type="radio"   name="quest_1" value="0" > <label>23.09V </label><br>
+            <input class="answer" type="radio"  name="quest_1" value="1" > <label>11.54V </label>
+        </form>
+      </dialog>
+    </div>
 
+    <div class="result_box">
+      <h3 class="result_heading">RESULTS</h3>
+      <div class="result_display">
+        <table>
+          <tr>
+            <td>
+              <p class="result_p">Time Period(s) </p>
+            </td>
+            <td>
+              <p id="timeperiod_result" class="result_p"></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="result_p">Peak-to-Peak Voltage(V) </p>
+            </td>
+            <td>
+              <p id="ptop_voltage_result" class="result_p"></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="result_p">RMS Voltage(V) </p>
+            </td>
+            <td>
+              <p id="rms_voltage_result" class="result_p"></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="result_p">Average Voltage(V) </p>
+            </td>
+            <td>
+              <p id="average_volatge_result" class="result_p"></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="result_p">Peak Voltage(V)</p>
+            </td>
+            <td>
+              <p id="peak_voltage_result" class="result_p"></p>
+            </td>
+          </tr>
+        </table>
+        <br>
+      </div>
+    </div>
+  </div>
 
-}
-//Changing the amplitude-----------------------------------------------------
-function ydivision() {
+  <script src="js/index.js" charset="utf-8"></script>
+</body>
 
-    if (on == 1 && on_fg == 1) {
-      y_div = 1 / Number(document.getElementById("ydivision_input").value);
-      plot_condn();
-    }
-    if (tour_on == 10) { //For demo purpose
-      dialog.close();
-      dialog = document.getElementById('xy_cro_demo');
-      dialog.show();
-      tour_on = 11;
-    }
-
-
-}
-//ON/OFF switch--------------------------------------------------
-function on_off_cro() {
-
-    if (tour_on == 2) { //For demo purpose
-      dialog.close();
-      dialog = document.getElementById('onoff_fg_demo');
-      dialog.show();
-      tour_on = 3
-    }
-    count = count + 1;
-    if (count % 2 == 0) {
-      on = 1;
-      document.getElementById("canvas").style.backgroundColor = "rgba(0,255,0,0.6)"
-      if (on_fg == 1) {
-        window.requestAnimationFrame(plotfunc);
-      } else {
-        window.requestAnimationFrame(plotAxes);
-      }
-      result();
-    } else {
-      on = 0;
-      document.getElementById("canvas").style.backgroundColor = "rgba(0,255,0,0.1)"
-      c.clearRect(0, 0, canvas.width, canvas.height);
-      result();
-    }
-
-
-}
-//X-Y-----------------------------------------------------------------------------
-function plotLine() {
-  plotAxes();
-  c.strokeStyle = "black";
-  var ay = ((canvas.height / 2) - ((1) * (-amp) * (y_div)) - (y_pos * 1));
-  var y = ((canvas.height / 2) + ((1) * (-amp) * (y_div)) - (y_pos * 1));
-
-  c.beginPath();
-  c.moveTo((canvas.width / 2) + x_pos - 20, ay);
-  c.lineTo((canvas.width / 2) + x_pos - 20, y);
-  c.stroke();
-
-}
-
-function xy() {
-
-    if (tour_on == 11) {
-      dialog.close();
-      dialog = document.getElementById('focus_cro_demo');
-      dialog.show();
-      tour_on = 12
-    }
-    xycount = xycount + 1;
-    if (xycount % 2 == 0) {
-      xy_on = 1;
-      plot_condn();
-      result();
-    } else {
-      xy_on = 0;
-      plot_condn();
-      result();
-    }
-
-
-}
-//Focus -----------------------------------------------------
-function plot_focus() {
-
-    plotAxes();
-    c.strokeStyle = "blue";
-    c.beginPath();
-    var y = (canvas.height / 2) - 5;
-    c.moveTo(x_pos, y);
-    for (i = x_pos; i < 2000; i++) {
-      y = ((canvas.height / 2) - (y_pos * 1));
-      c.lineTo(i, y);
-    }
-    c.stroke();
-    result();
-
-}
-
-function myfunc() {
-  focus_count = focus_count + 1;
-  if (focus_count % 2 == 0) {
-    focus = 1;
-    plot_condn();
-    result();
-  } else {
-    focus = 0;
-    plot_condn();
-    result();
-  }
-  if (tour_on == 12) {
-    tour_on = 13;
-    dialog.close();
-    dialog = document.getElementById('remove_wire_demo');
-    dialog.show();
-  }
-}
-// Wire Connection
-function connect_wire() {
-  document.getElementById("wire").style.top = "175px";
-  connect = 1;
-  plot_condn();
-  if (tour_on == 1) {
-    dialog.close();
-    dialog = document.getElementById('onoff_cro_demo');
-    dialog.show();
-    tour_on = 2
-  }
-  q1_count = q1_count + 1;
-  if (q1_count == 1 && tour_check == 0) {
-    dialog_out = document.getElementById('pop_up_quest_1');
-    dialog_out.show();
-    quest_no = 1;
-    quest_answered = 0;
-    disable();
-  }
-}
-
-function remove_wire() {
-
-    document.getElementById("wire").style.top = "225px";
-    connect = 0;
-    plot_condn();
-    if (tour_on == 13) {
-      tour_on = 0;
-      dialog.close();
-      tour_check = 0;
-    }
-    result();
-    q5_count = q5_count + 1;
-    if (q5_count == 1 && tour_check == 0) {
-      dialog_out = document.getElementById('pop_up_quest_5');
-      dialog_out.show();
-      quest_no = 5;
-      quest_answered = 0;
-      disable();
-    }
-
-
-}
-// Function disabler
-function disable() {
-  var x = " "
-  if(quest_answered ===0 ){
-    x = "true";
-  }
-  else{
-    x=false
-  }
-  document.getElementById("time_division").disabled = x;
-  document.getElementById("how_to_measure").disabled = x;
-  document.getElementById("on_off_cro").disabled = x;
-  document.getElementById("yposition").disabled = x;
-  document.getElementById("xposition").disabled = x;
-  document.getElementById("xy").disabled = x;
-  document.getElementById("focus").disabled = x;
-  document.getElementById("ydivision_input").disabled = x;
-  document.getElementById("connect").disabled = x;
-  document.getElementById("remove").disabled = x;
-  document.getElementById("on_off_fg").disabled = x;
-  document.getElementById("amplitude").disabled = x;
-  document.getElementById("frequency").disabled = x;
-  document.getElementById("signal_select").disabled = x;
-  document.getElementById("tour").disabled = x;
-}
-//FUNCTION GENERATOR----------------------------------------------------------------------\
-var display = document.getElementById("display_canvas");
-var disp = display.getContext("2d");
-var func = "Sin";
-var amp_disp = 30;
-var freq_disp = 5;
-
-function display_fg() {
-  disp.clearRect(0, 0, canvas.width, canvas.height);
-  disp.font = "20px Arial";
-  disp.fillText(func, 10, 20);
-  disp.fillText(amp + " V", 10, 45);
-  disp.fillText(freq_disp + " Hz", 120, 45)
-}
-
-function amplitude() {
-
-    if (on_fg == 1) {
-      amp = Number(document.getElementById("amplitude").value);
-      amp_disp = amp;
-      display_fg();
-    }
-    if (on == 1) {
-      plot_condn();
-      result();
-    }
-    if (tour_on == 6) { //For demo purpose
-      dialog.close();
-      dialog = document.getElementById('xposition_cro_demo');
-      dialog.show();
-      tour_on = 7;
-    }
-    q4_count = q4_count + 1;
-    if (q4_count == 1 && tour_check == 0) {
-      dialog_out = document.getElementById('pop_up_quest_4');
-      dialog_out.show();
-      quest_no = 4;
-      quest_answered = 0;
-      disable();
-    }
-
-
-}
-
-function freq() {
-
-    if (on_fg == 1) {
-      freq_disp = Number(document.getElementById("frequency").value);
-      frequency = freq_disp;
-      display_fg();
-    }
-    if (on == 1) {
-      plot_condn();
-      result();
-    }
-    if (tour_on == 5) { //For demo purpose
-      dialog.close();
-      dialog = document.getElementById('amplitude_fg_demo');
-      dialog.show();
-      tour_on = 6;
-    }
-    q3_count = q3_count + 1;
-    if (q3_count == 1 && tour_check == 0) {
-      dialog_out = document.getElementById('pop_up_quest_3');
-      dialog_out.show();
-      quest_no = 3;
-      quest_answered = 0;
-      disable();
-    }
-
-
-}
-
-function on_off_fg() {
-
-    if (count_fg % 2 == 0) {
-      document.getElementById("display_canvas").style.backgroundColor = "rgba(0,255,0,0.6)"
-      display_fg();
-      on_fg = 1;
-      plot_condn();
-    } else {
-      on_fg = 0;
-      disp.clearRect(0, 0, canvas.width, canvas.height);
-      document.getElementById("display_canvas").style.backgroundColor = "rgba(0,255,0,0.1)"
-      result();
-      plot_condn();
-    }
-    count_fg = count_fg + 1;
-    if (tour_on == 3) { //For demo purpose
-      dialog.close();
-      dialog = document.getElementById('signal_select_demo');
-      dialog.show();
-      tour_on = 4
-    }
-
-
-}
-
-function signal_selection() {
-    if (on_fg == 1) {
-      signal_no = document.getElementById("signal_select").value;
-      if (signal_no == 1) {
-        func = "Sin";
-      } else if (signal_no == 2) {
-        func = "Cos";
-      } else if (signal_no == 3) {
-        func = "Sawtooth";
-      } else if (signal_no == 4) {
-        func = "Triangle";
-      } else if (signal_no == 5) {
-        func = "Square"
-      }
-      display_fg();
-      result();
-    }
-    if (on == 1) {
-      window.requestAnimationFrame(plotfunc);
-    }
-    if (tour_on == 4) {
-      dialog.close();
-      dialog = document.getElementById('frequency_fg_demo');
-      dialog.show();
-      tour_on = 5;
-    }
-    q2_count = q2_count + 1;
-    if (q2_count == 1 && tour_check == 0) {
-      dialog_out = document.getElementById('pop_up_quest_2');
-      dialog_out.show();
-      quest_no = 2;
-      quest_answered = 0;
-      disable();
-    }
-
-
-}
-// Tour guide
-function tour() {
-
-    tour_on = 1;
-    tour_check = 1;
-    dialog = document.getElementById('connect_demo');
-    dialog.show();
-
-
-}
-// Result
-function result() {
-
-    if (func == "Sin" || func == "Cos") {
-      peak_value = amp * 0.707;
-      avg_value = amp * 0.637;
-    } else if (func == "Square") {
-      peak_value = amp;
-      avg_value = amp;
-    } else {
-      peak_value = amp * 0.577;
-      avg_value = amp * 0.5;
-    }
-    if (on == 1 && on_fg == 1 && connect == 1) {
-      document.getElementById("timeperiod_result").textContent = ":" + (1 / frequency) + "s"
-      document.getElementById("ptop_voltage_result").textContent = ":" + amp * 2 + "V";
-      document.getElementById("rms_voltage_result").textContent = ":" + peak_value + "V";
-      document.getElementById("average_volatge_result").textContent = ":" + avg_value + "V";
-      document.getElementById('peak_voltage_result').textContent = ":" + amp + "V";
-    } else {
-      document.getElementById("timeperiod_result").textContent = ":";
-      document.getElementById("ptop_voltage_result").textContent = ":";
-      document.getElementById("rms_voltage_result").textContent = ":";
-      document.getElementById("average_volatge_result").textContent = ":";
-      document.getElementById('peak_voltage_result').textContent = ":";
-    }
-
-
-}
-
-// POPup question function
-for (i = 0; i < document.querySelectorAll(".answer").length; i++) {
-  document.querySelectorAll(".answer")[i].addEventListener("click", function() {
-    var value = this.value;
-    ans_display(Number(value), quest_no);
-  });
-}
-
-function ans_display(ans, quest_no) {
-  if (ans == 1) {
-    alert("Correct answer!");
-  } else {
-    switch (quest_no) {
-      case 1:
-        alert("Wrong answer!" + " \nCorrect answer: Peak Voltage/√2");
-        break;
-
-      case 2:
-        alert("Wrong answer!" + "\nCorrect answer: 21.21V \nPeak Voltage = Peak-to-peak/2 = 30V \nRMS voltage = Peak Voltage/√2 =30/√2 = 21.21 V");
-        break;
-
-      case 3:
-        alert("Wrong answer!" + "\nCorrect answer: 0.1s \n Timeperiod = 1/Frequency \n T = 1/10 = 0.1s");
-        break;
-
-      case 4:
-        alert("Wrong answer!" + "\n Correct answer: Average Value");
-        break;
-
-      case 5:
-        alert("Wrong answer!" + "\nCorrect answer: 11.54V\nRMS value of sawtooth wave=Peak value/√3 = 20/√3 =11.54V");
-        quest_no = 0;
-        break;
-    }
-  }
-  dialog_out.close();
-  quest_answered = 1;
-  disable();
-}
-
-function measurement_guide() {
-  alert("Each division in CRO is 10 units.After taking the reading from the display multiply with the X-Division,Y-Division if X,Y related parameter is calculated.Press the Tour button to get familiarize with the functionality of CRO and function generator");
-}
+</html>
